@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+/*
+ * The identity of the 2023 site (src/style/vars.scss): white header, #f6f6f6 gray bands, the
+ * lime green #d2d92e with its hover #a5a921, the red of the logo, black footer and Raleway.
+ * Buttons keep the lime but use dark text: white on lime could not be read.
+ */
+@theme {
+  --color-lime: #d2d92e;
+  --color-lime-dark: #a5a921;
+  --color-lime-deep: #6b6e10;
+  --color-rose: #e7354f;
+  --color-mist: #f6f6f6;
+  --color-stone: #979797;
+  --color-ink: #141414;
+
+  --font-sans: "Raleway", ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-card: 5px 6px 15px 0 rgb(65 62 62 / 0.55);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 88px;
+  }
+
+  body {
+    margin: 0;
+    background: #fff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-lime);
+    border-radius: 10px;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-lime-dark);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      transition-duration: 1ms !important;
+      animation-duration: 1ms !important;
+    }
+  }
+}
+
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 4px;
+    padding: 10px 16px;
+    background: var(--color-lime);
+    color: var(--color-ink);
+    font-weight: 700;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+  }
+  .btn:hover {
+    background: var(--color-lime-dark);
+  }
+  .btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  .title {
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .photo {
+    border-radius: 8px;
+    box-shadow: var(--shadow-card);
+    object-fit: cover;
+  }
+
+  .field {
+    width: 100%;
+    border: 2px solid #d9d9d9;
+    border-radius: 4px;
+    background: #fff;
+    padding: 10px 12px;
+    font: inherit;
+    font-size: 16px;
+    transition: border-color 0.2s;
+  }
+  .field:focus {
+    outline: none;
+    border-color: var(--color-lime-dark);
+  }
+  .field[aria-invalid="true"] {
+    border-color: var(--color-rose);
+  }
+
+  /* The 2023 reveal: sections fade up the first time they enter the screen. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.8s ease,
+      transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+}
